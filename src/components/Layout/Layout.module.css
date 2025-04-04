@@ -1,0 +1,24 @@
+.container {
+    height: 100vh;
+}
+
+.content {
+    padding-top: 4rem;
+    transition: all 0.3s;
+    transition-property: padding-top, margin-left;
+    transition-duration: 300ms;
+}
+
+.main {
+    overflow-y: auto;
+    padding: 1.5rem;
+    background-color: var(--color-lightPrimary);
+    min-height: 100vh;
+}
+
+@media (min-width: 768px) {
+    .content {
+        padding-top: 0;
+        margin-left: 16rem;
+    }
+}

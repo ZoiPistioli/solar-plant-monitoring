@@ -1,10 +1,17 @@
-@import "tailwindcss";
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-@theme {
+:root {
     --color-heading-dark: #02030c;
     --color-trusted-navy-500: #05071f;
-    --color--bg-primary: #214cf5;
-    --color-bg-primary-hover: linear-gradient(108deg, #0047ff 7.25%, #55c1ff 79.6%);
+    --color-primary: #214cf5;
+    --color-lightPrimary: #f4f7fe;
+    --color-primary-hover: linear-gradient(108deg, #0047ff 7.25%, #55c1ff 79.6%);
     --color-text-body: #475467;
     --color-text-accent-rose: #d645a1;
     --color-error-50: #fef3f2;
@@ -37,4 +44,35 @@
     --success-700: #027a48;
     --success-800: #05603a;
     --success-900: #054f31;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-400: #a3aed0;
+    --gray-500: #64748b;
+    --blue-50: #eff6ff;
+
+    --font-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+    --font-size-xs: 0.75rem;     /* 12px */
+    --font-size-sm: 0.875rem;    /* 14px */
+    --font-size-base: 1rem;      /* 16px */
+    --font-size-lg: 1.125rem;    /* 18px */
+    --font-size-xl: 1.25rem;     /* 20px */
+    --font-size-2xl: 1.5rem;     /* 24px */
+    --font-size-3xl: 1.875rem;   /* 30px */
+    --font-size-4xl: 2.25rem;    /* 36px */
+
+    --font-weight-light: 300;
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+}
+
+body {
+    font-family: var(--font-primary);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-regular);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
