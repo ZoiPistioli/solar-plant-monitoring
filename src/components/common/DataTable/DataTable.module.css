@@ -374,3 +374,12 @@
   height: 300px;
   vertical-align: middle;
 }
+
+.clickableRow {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.clickableRow:hover {
+  background-color: #f9fafb;
+}

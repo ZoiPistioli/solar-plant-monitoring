@@ -1,4 +1,4 @@
-import { Plant, Datapoint } from './domain';
+import { SolarPlant, Datapoint } from './domain';
 
 export interface ApiResponse<T> {
   data?: T;
@@ -24,6 +24,6 @@ export interface DataUpdateResponse {
   ok: boolean;
 }
 
-export type PlantListResponse = Plant[];
-export type PlantResponse = Plant;
+export type PlantListResponse = SolarPlant[];
+export type PlantResponse = SolarPlant;
 export type DatapointListResponse = Datapoint[];
