@@ -66,6 +66,13 @@
     --font-weight-medium: 500;
     --font-weight-semibold: 600;
     --font-weight-bold: 700;
+    --font-weight-extrabold: 800;
+    --font-weight-black: 900;
+
+    --tw-ring-offset-shadow: 0 0 #0000;
+    --tw-ring-shadow: 0 0 #0000;
+    --tw-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color, #0000), 0 2px 4px -1px var(--tw-shadow-color, #0000);
 }
 
 body {
@@ -76,3 +83,39 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
+* {
+    scrollbar-width: thin; 
+    scrollbar-color: rgba(33, 76, 245, 0.15) transparent; 
+  }
+  
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px; 
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: var(--color-lightPrimary); 
+    border-radius: 10px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(33, 76, 245, 0.15); 
+    border-radius: 10px;
+    border: 2px solid transparent; 
+    background-clip: content-box; 
+    transition: background-color 0.3s ease;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(33, 76, 245, 0.25); 
+  }
+  
+  html {
+    scroll-behavior: smooth;
+    overscroll-behavior-y: none; 
+  }
+  
+  body {
+    -webkit-overflow-scrolling: touch; 
+  }

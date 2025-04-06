@@ -26,7 +26,7 @@
 
 .logoTitle {
     font-size: var(--font-size-lg);
-    font-weight: 600;
+    font-weight: 900;
 }
 
 .toggleButton {
@@ -79,7 +79,7 @@
 .desktopLogoTitle {
     margin-left: 0.75rem;
     font-size: var(--font-size-xl);
-    font-weight: 600;
+    font-weight: 900;
 }
 
 .navigation {
@@ -151,7 +151,7 @@
     }
 
     .sidebar {
-        width: 16rem;
+        width: 18rem;
         transform: translateX(0);
         padding-top: 1rem;
     }

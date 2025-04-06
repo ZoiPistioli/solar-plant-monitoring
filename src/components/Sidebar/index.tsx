@@ -38,7 +38,7 @@ const Sidebar = () => {
       <aside className={`${styles.sidebar} ${isOpen ? styles.sidebarOpen : ''}`}>
         <div className={styles.desktopLogo}>
           <Zap className={styles.desktopLogoIcon} />
-          <h1 className={styles.desktopLogoTitle}>SOLAR MANAGER</h1>
+          <h1 className={styles.desktopLogoTitle}>SPP MANAGER</h1>
         </div>
         
         <nav className={styles.navigation}>
