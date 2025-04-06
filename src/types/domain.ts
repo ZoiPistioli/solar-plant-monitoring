@@ -1,4 +1,4 @@
-export interface Plant {
+export interface SolarPlant {
     id: string;
     name: string;
 }

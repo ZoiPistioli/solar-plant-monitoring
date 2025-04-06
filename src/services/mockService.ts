@@ -1,13 +1,13 @@
-import { Plant, Datapoint, DataReportRequest, DataUpdateRequest, DataUpdateResponse, ApiResponse } from '../types';
+import { SolarPlant, Datapoint, DataReportRequest, DataUpdateRequest, DataUpdateResponse, ApiResponse } from '../types';
 import { v4 as uuidv4 } from 'uuid';
 
-const getInitialPlants = (): Plant[] => {
+const getInitialPlants = (): SolarPlant[] => {
   const storedPlants = localStorage.getItem('mockPlants');
   if (storedPlants) {
     return JSON.parse(storedPlants);
   }
 
-  const initialPlants: Plant[] = [
+  const initialPlants: SolarPlant[] = [
     { id: uuidv4(), name: 'Solar Plant Alpha' },
     { id: uuidv4(), name: 'Solar Plant Beta' },
     { id: uuidv4(), name: 'Solar Plant Gamma' },
@@ -17,14 +17,25 @@ const getInitialPlants = (): Plant[] => {
     { id: uuidv4(), name: 'Solar Plant Eta' },
     { id: uuidv4(), name: 'Solar Plant Theta' },
     { id: uuidv4(), name: 'Solar Plant Iota' },
-    { id: uuidv4(), name: 'Solar Plant Kappa' }
+    { id: uuidv4(), name: 'Solar Plant Kappa' },
+    { id: uuidv4(), name: 'Solar Plant Lambda' },
+    { id: uuidv4(), name: 'Solar Plant Mu' },
+    { id: uuidv4(), name: 'Solar Plant Nu' },
+    { id: uuidv4(), name: 'Solar Plant Xi' },
+    { id: uuidv4(), name: 'Solar Plant Omicron' },
+    { id: uuidv4(), name: 'Solar Plant Pi' },
+    { id: uuidv4(), name: 'Solar Plant Rho' },
+    { id: uuidv4(), name: 'Solar Plant Sigma' },
+    { id: uuidv4(), name: 'Solar Plant Tau' },
+    { id: uuidv4(), name: 'Solar Plant Upsilon' },
+    { id: uuidv4(), name: 'Solar Plant Phi' }
   ];
 
   localStorage.setItem('mockPlants', JSON.stringify(initialPlants));
   return initialPlants;
 };
 
-let mockPlants: Plant[] = getInitialPlants();
+let mockPlants: SolarPlant[] = getInitialPlants();
 
 const generateRandomDatapoint = (day: string): Datapoint => {
   return {
@@ -53,7 +64,7 @@ const generateMonthDatapoints = (date: string): Datapoint[] => {
 };
 
 export const mockApiService = {
-  getPlants: async (): Promise<ApiResponse<Plant[]>> => {
+  getPlants: async (): Promise<ApiResponse<SolarPlant[]>> => {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve({ data: [...mockPlants] });
@@ -61,7 +72,7 @@ export const mockApiService = {
     });
   },
   
-  getPlantById: async (id: string): Promise<ApiResponse<Plant>> => {
+  getPlantById: async (id: string): Promise<ApiResponse<SolarPlant>> => {
     return new Promise((resolve) => {
       setTimeout(() => {
         const plant = mockPlants.find(p => p.id === id);
@@ -74,10 +85,10 @@ export const mockApiService = {
     });
   },
   
-  createPlant: async (plantData: { name: string }): Promise<ApiResponse<Plant>> => {
+  createPlant: async (plantData: { name: string }): Promise<ApiResponse<SolarPlant>> => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        const newPlant: Plant = {
+        const newPlant: SolarPlant = {
           id: uuidv4(),
           name: plantData.name
         };
@@ -88,7 +99,7 @@ export const mockApiService = {
     });
   },
   
-  updatePlant: async (id: string, plantData: { name: string }): Promise<ApiResponse<Plant>> => {
+  updatePlant: async (id: string, plantData: { name: string }): Promise<ApiResponse<SolarPlant>> => {
     return new Promise((resolve) => {
       setTimeout(() => {
         const index = mockPlants.findIndex(p => p.id === id);
