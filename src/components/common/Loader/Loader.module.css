@@ -1,0 +1,113 @@
+.loader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-height: 120px;
+}
+
+.loaderContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.spinnerWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fullScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(5px);
+    z-index: 9999;
+}
+
+.spinner {
+    display: inline-block;
+    position: relative;
+    border-radius: 50%;
+}
+
+.sm .spinner {
+    width: 24px;
+    height: 24px;
+}
+
+.md .spinner {
+    width: 40px;
+    height: 40px;
+}
+
+.lg .spinner {
+    width: 64px;
+    height: 64px;
+}
+
+.spinner::before,
+.spinner::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.spinner::before {
+    border: 3px solid rgba(0, 0, 0, 0.1);
+}
+
+.spinner::after {
+    border: 3px solid transparent;
+    animation: spin 1s linear infinite;
+}
+
+.default .spinner::after {
+    border-top-color: #333;
+}
+
+.primary .spinner::after {
+    border-top-color: #3b82f6;
+    border-left-color: #3b82f6;
+}
+
+.secondary .spinner::after {
+    border-top-color: #10b981;
+}
+
+.message {
+    margin: 0;
+    color: #4b5563;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-align: center;
+    opacity: 0.9;
+}
+
+:global(td).loaderCell {
+    text-align: center;
+    padding: 2rem;
+    height: 200px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 0.4; }
+}
