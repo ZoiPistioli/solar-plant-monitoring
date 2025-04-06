@@ -1,19 +1,12 @@
-import React from 'react';
+import { LoaderProps } from '@/types';
 import styles from './Loader.module.css';
 
-interface LoaderProps {
-    size?: 'sm' | 'md' | 'lg';
-    variant?: 'default' | 'primary' | 'secondary';
-    fullScreen?: boolean;
-    message?: string;
-}
-
-const Loader: React.FC<LoaderProps> = ({
+const Loader = ({
     size = 'md',
     variant = 'primary',
     fullScreen = false,
     message
-}) => {
+}: LoaderProps) => {
     const loaderClasses = [
         styles.loader,
         styles[size],
@@ -28,7 +21,7 @@ const Loader: React.FC<LoaderProps> = ({
                     <div className={styles.spinner}></div>
                 </div>
                 {message && (
-                    <p className={styles.message}>{message}</p>
+                <p className={styles.message}>{message}</p>
                 )}
             </div>
         </div>

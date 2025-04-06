@@ -1,27 +1,29 @@
-export interface Plant {
-  id: string;
-  name: string;
-}
+import { Plant, Datapoint } from './domain';
 
-export interface Datapoint {
-  day: string;
-  total_energy_expected: number;
-  total_energy_observed: number;
-  total_irradiation_expected: number;
-  total_irradiation_observed: number;
+export interface ApiResponse<T> {
+  data?: T;
+  error?: string;
 }
 
 export interface DataReportRequest {
-  plant_id: string;
-  date: string;
+  plant_id: string; 
+  date: string; 
 }
 
 export interface DataUpdateRequest {
   from_date: string;
-  to_date: string;
-  plant_id: string;
+  to_date: string;  
+  plant_id: string;  
+}
+
+export interface CreatePlantRequest {
+  name: string;     
 }
 
 export interface DataUpdateResponse {
   ok: boolean;
 }
+
+export type PlantListResponse = Plant[];
+export type PlantResponse = Plant;
+export type DatapointListResponse = Datapoint[];
