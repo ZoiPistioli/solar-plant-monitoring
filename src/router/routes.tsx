@@ -11,9 +11,4 @@ export const ROUTES = {
     label: 'Solar Panel Plants',
     icon: <Columns2 className="text-inherit h-5 w-5" />,
   },
-  monitoring: {
-    path: '/monitoring',
-    label: 'Monitoring',
-    icon: <MonitorDot className="text-inherit h-5 w-5" />,
-  },
 };

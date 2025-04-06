@@ -11,7 +11,7 @@ export const AppRoutes = () => {
       <Route element={<Layout />}>
         <Route path={ROUTES.home.path} element={<Dashboard />} />
         <Route path={ROUTES.plants.path} element={<SolarPanelPlants />} />
-        <Route path={ROUTES.monitoring.path} element={<Monitoring />} />
+        <Route path="/plants/:id" element={<Monitoring />} />
       </Route>
     </Routes>
   );
