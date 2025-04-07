@@ -6,7 +6,7 @@ export interface ApiResponse<T> {
 }
 
 export interface DataReportRequest {
-  plant_id: string; 
+  uid: string; 
   date: string; 
 }
 

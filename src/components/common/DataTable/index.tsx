@@ -26,6 +26,11 @@ const DataTable = <T extends Record<string, any>>({
   sortKey: controlledSortKey,
   sortDirection: controlledSortDirection,
   onSortChange,
+  totalItems,
+  totalPages: passedTotalPages,
+  hasNextPage,
+  hasPrevPage,
+  serverSidePagination = false,
 }: DataTableProps<T>) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [internalPage, setInternalPage] = useState(1);
@@ -35,7 +40,14 @@ const DataTable = <T extends Record<string, any>>({
 
   useEffect(() => {
     if (!controlledPage && !onPageChange) setInternalPage(1);
-    onSearchChange?.(searchTerm);
+    
+    const handler = setTimeout(() => {
+      onSearchChange?.(searchTerm);
+    }, 300);
+    
+    return () => {
+      clearTimeout(handler);
+    };
   }, [searchTerm, onSearchChange]);
 
   const currentPage = controlledPage ?? internalPage;
@@ -43,6 +55,8 @@ const DataTable = <T extends Record<string, any>>({
   const sortDirection = controlledSortDirection ?? internalSortDirection;
 
   const filteredData = useMemo(() => {
+    if (serverSidePagination) return data;
+    
     if (!searchTerm.trim()) return data;
     return data.filter((item) =>
       searchFields.some((field) => {
@@ -53,9 +67,11 @@ const DataTable = <T extends Record<string, any>>({
         );
       })
     );
-  }, [data, searchTerm, searchFields]);
+  }, [data, searchTerm, searchFields, serverSidePagination]);
 
   const sortedData = useMemo(() => {
+    if (serverSidePagination) return data;
+    
     if (!sortKey || !sortDirection) return filteredData;
     return [...filteredData].sort((a, b) => {
       const aValue = a[sortKey],
@@ -73,13 +89,30 @@ const DataTable = <T extends Record<string, any>>({
           : 1;
       return sortDirection === 'asc' ? comp : -comp;
     });
-  }, [filteredData, sortKey, sortDirection]);
+  }, [filteredData, sortKey, sortDirection, serverSidePagination]);
 
-  const totalPages = Math.max(1, Math.ceil(sortedData.length / itemsPerPage));
+  const calculatedTotalPages = serverSidePagination 
+    ? (passedTotalPages || Math.ceil((totalItems || 0) / itemsPerPage))
+    : Math.max(1, Math.ceil(sortedData.length / itemsPerPage));
+  
+  const totalPages = calculatedTotalPages;
+  
   const paginatedData = useMemo(() => {
+    if (serverSidePagination) return data;
+    
     const start = (currentPage - 1) * itemsPerPage;
     return sortedData.slice(start, start + itemsPerPage);
-  }, [sortedData, currentPage, itemsPerPage]);
+  }, [sortedData, currentPage, itemsPerPage, serverSidePagination, data]);
+
+  const displayData = serverSidePagination ? data : paginatedData;
+  
+  const displayTotalItems = serverSidePagination ? (totalItems || 0) : sortedData.length;
+  const handleSearch = (value: string) => {
+    setSearchTerm(value);
+    if (!serverSidePagination || !onPageChange) {
+      setInternalPage(1);
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -91,12 +124,12 @@ const DataTable = <T extends Record<string, any>>({
             className={styles.searchInput}
             placeholder="Search..."
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={(e) => handleSearch(e.target.value)}
           />
           {searchTerm && (
             <button
               className={styles.clearSearch}
-              onClick={() => setSearchTerm('')}
+              onClick={() => handleSearch('')}
             >
               ×
             </button>
@@ -104,10 +137,9 @@ const DataTable = <T extends Record<string, any>>({
         </div>
 
         <div className={styles.resultsInfo}>
-          {!isLoading && filteredData.length > 0 && (
+          {!isLoading && displayTotalItems > 0 && (
             <span className={styles.resultsCount}>
-              {filteredData.length}{' '}
-              {filteredData.length === 1 ? 'entry' : 'entries'}
+              {displayTotalItems} {displayTotalItems === 1 ? 'entry' : 'entries'}
             </span>
           )}
 
@@ -120,7 +152,7 @@ const DataTable = <T extends Record<string, any>>({
                     ? onPageChange(Math.max(currentPage - 1, 1))
                     : setInternalPage((p) => Math.max(p - 1, 1))
                 }
-                disabled={currentPage === 1}
+                disabled={serverSidePagination ? !hasPrevPage : currentPage === 1}
               >
                 <ChevronLeft size={16} />
               </button>
@@ -134,7 +166,7 @@ const DataTable = <T extends Record<string, any>>({
                     ? onPageChange(Math.min(currentPage + 1, totalPages))
                     : setInternalPage((p) => Math.min(p + 1, totalPages))
                 }
-                disabled={currentPage === totalPages}
+                disabled={serverSidePagination ? !hasNextPage : currentPage === totalPages}
               >
                 <ChevronRight size={16} />
               </button>
@@ -237,7 +269,7 @@ const DataTable = <T extends Record<string, any>>({
                   </p>
                 </td>
               </tr>
-            ) : filteredData.length === 0 ? (
+            ) : displayData.length === 0 ? (
               <tr>
                 <td
                   colSpan={columns.length + (actions ? 1 : 0)}
@@ -253,7 +285,7 @@ const DataTable = <T extends Record<string, any>>({
                   </p>
                   <button
                     className={styles.clearButton}
-                    onClick={() => setSearchTerm('')}
+                    onClick={() => handleSearch('')}
                   >
                     Clear Search
                   </button>
@@ -261,52 +293,50 @@ const DataTable = <T extends Record<string, any>>({
               </tr>
             ) : (
               <>
-                {paginatedData.map((item) => (
-                  <tr
-                    key={keyExtractor(item)}
-                    className={`${styles.row} ${
-                      onRowClick ? styles.clickableRow : ''
-                    }`}
-                    onClick={
-                      onRowClick ? () => onRowClick(item) : undefined
-                    }
-                  >
-                    {columns.map((column) => (
-                      <td
-                        key={`${keyExtractor(item)}-${String(column.key)}`}
-                        className={styles.cell}
-                        style={{ width: column.width ?? 'auto' }}
-                      >
-                        {column.render
-                          ? column.render(item)
-                          : item[column.key as keyof T]}
-                      </td>
-                    ))}
-                    {actions && (
-                      <td className={styles.actionsCell}>
-                        <div
-                          className={styles.actionsCellContent}
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          {actions(item)}
-                        </div>
-                      </td>
-                    )}
-                  </tr>
-                ))}
-
-                {Array.from({
-                  length: itemsPerPage - paginatedData.length,
-                }).map((_, index) => (
-                  <tr key={`filler-${index}`} className={styles.row}>
-                    <td
-                      colSpan={columns.length + (actions ? 1 : 0)}
-                      style={{ height: '53px' }}
+                {Array.from({ length: itemsPerPage }, (_, index) => 
+                  index < data.length ? (
+                    <tr
+                      key={keyExtractor(data[index])}
+                      className={`${styles.row} ${
+                        onRowClick ? styles.clickableRow : ''
+                      }`}
+                      onClick={
+                        onRowClick ? () => onRowClick(data[index]) : undefined
+                      }
                     >
-                      &nbsp;
-                    </td>
-                  </tr>
-                ))}
+                      {columns.map((column) => (
+                        <td
+                          key={`${keyExtractor(data[index])}-${String(column.key)}`}
+                          className={styles.cell}
+                          style={{ width: column.width ?? 'auto' }}
+                        >
+                          {column.render
+                            ? column.render(data[index])
+                            : data[index][column.key as keyof T]}
+                        </td>
+                      ))}
+                      {actions && (
+                        <td className={styles.actionsCell}>
+                          <div
+                            className={styles.actionsCellContent}
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            {actions(data[index])}
+                          </div>
+                        </td>
+                      )}
+                    </tr>
+                  ) : (
+                    <tr key={`filler-${index}`} className={styles.row}>
+                      <td
+                        colSpan={columns.length + (actions ? 1 : 0)}
+                        style={{ height: '53px' }}
+                      >
+                        &nbsp;
+                      </td>
+                    </tr>
+                  )
+                )}
               </>
             )}
           </tbody>

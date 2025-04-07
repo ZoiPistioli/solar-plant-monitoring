@@ -1,5 +1,5 @@
 export interface SolarPlant {
-    id: string;
+    uid: string;
     name: string;
 }
 

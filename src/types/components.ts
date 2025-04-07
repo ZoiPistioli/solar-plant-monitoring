@@ -1,5 +1,5 @@
 import React from 'react';
-import { Column, SortDirection } from './ui';
+import { SortDirection } from './ui';
 import { SolarPlant } from './domain';
 
 export interface CardProps {
@@ -23,22 +23,33 @@ export interface ModalProps {
 
 export interface DataTableProps<T> {
     data: T[];
-    columns: Column<T>[];
+    columns: {
+        key: string;
+        header: string;
+        sortable?: boolean;
+        render?: (item: T) => React.ReactNode;
+        width?: string;
+    }[];
     keyExtractor: (item: T) => string;
-    searchFields?: Array<keyof T>;
+    searchFields?: string[];
     itemsPerPage?: number;
     isLoading?: boolean;
-    emptyStateMessage?: string;
     onRowClick?: (item: T) => void;
     actions?: (item: T) => React.ReactNode;
-    onSearchChange?: (searchTerm: string) => void;
-
+    onSearchChange?: (term: string) => void;
+    
+    currentPage?: number;
+    onPageChange?: (page: number) => void;
+    
     sortKey?: string | null;
     sortDirection?: SortDirection;
     onSortChange?: (key: string | null, direction: SortDirection) => void;
-
-    currentPage?: number;
-    onPageChange?: (page: number) => void;
+    
+    totalItems?: number;  
+    totalPages?: number;
+    hasNextPage?: boolean;
+    hasPrevPage?: boolean;
+    serverSidePagination?: boolean;
 }
 
 export interface PlantFormProps {
