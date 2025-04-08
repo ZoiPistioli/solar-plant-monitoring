@@ -137,12 +137,13 @@
   background-color: var(--color-primary, #3d91ff);
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 33px;
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.2s;
   width: 100%;
   max-width: 250px;
+  justify-content: center;
 }
 
 .button:hover {
