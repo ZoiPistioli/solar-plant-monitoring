@@ -1,7 +1,8 @@
 import React from 'react';
-import { SortDirection } from './ui';
 import { SolarPlant } from './domain';
 import { Range } from 'react-date-range';
+
+export type SortDirection = 'asc' | 'desc' | null;
 
 export interface CardProps {
     children: React.ReactNode;
@@ -172,4 +173,11 @@ export interface DataStateRendererProps {
     dateRange: DateRangeState[];
     children: React.ReactNode;
     onRetry?: () => void;
+}
+
+export interface UseDataFetchingProps {
+    plantId: string | null;
+    dateRange: DateRangeState[];
+    setDatapointReports: (data: any[]) => void;
+    setIsLoading: (loading: boolean) => void;
 }
