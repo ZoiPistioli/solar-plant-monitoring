@@ -1,0 +1,112 @@
+.container {
+  width: 100%;
+  margin: 0 auto;
+  min-height: calc(100vh - 2rem - 40px);
+}
+  
+.header {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+  
+.titleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: .5rem;
+}
+  
+.title {
+  font-size: var(--font-size-2xl);
+  color: var(--color--bg-primary);
+  text-align: left;
+  margin: 0;
+  padding: 0;
+  line-height: normal;
+}
+
+.plantIdStyle {
+  background-color: #f5f5f5;
+  color: #444;
+  padding: 0.25rem 0.4rem;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  font-family: monospace;
+  white-space: nowrap;
+  text-align: center;
+  width: fit-content;
+}
+  
+.buttonIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menuButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  background-color: var(--color-lightPrimary);
+  color: var(--color-primary);
+  border-radius: 0.5rem;
+  font-weight: var(--font-weight-semibold);
+  transition: all 0.2s;
+  border: none;
+  white-space: nowrap;
+}
+
+.menuButton:hover {
+  background-color: #f9fafb;
+}
+
+.buttonIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button {
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  display: flex;
+  margin: auto;
+  font-size: var(--font-size-base);
+  margin-top: .5rem;
+}
+
+.button:hover {
+  background: linear-gradient(108deg, #0047ff 7.25%, #55c1ff 79.6%);
+}
+
+.centeredContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70dvh;
+  text-align: center;
+}
+
+.reportRangeRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-body);
+}
+
+.calendarIcon {
+  color: var(--color-primary);
+}
+

@@ -158,8 +158,6 @@ export interface DateRangeSelectorProps {
 }
 
 export interface DataReportTableProps {
-    data: DatapointReport[];
-    isLoading: boolean;
     onSearchChange: (term: string) => void;
 }
 
