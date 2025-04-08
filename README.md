@@ -17,6 +17,7 @@ A React 19 application for monitoring and managing solar plant performance.
 - 📊 Recharts
 - 🧭 React Router
 - 🐳 Docker/Docker Compose
+- 🧪 Jest
 
 ## ⚙️ Prerequisites
 - 📦 Node.js 18+
@@ -47,6 +48,15 @@ Application runs at `http://localhost:5173/` 🌐
 ```bash
 # Build for production
 npm run build
+```
+
+### 🧪 Testing
+```bash
+# Run tests
+npm test
+
+# Run tests with coverage
+npm test -- --coverage
 ```
 
 ## 🐳 Docker Setup
