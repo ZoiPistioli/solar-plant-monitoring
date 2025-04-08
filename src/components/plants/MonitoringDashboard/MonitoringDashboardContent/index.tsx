@@ -4,8 +4,10 @@ import { Range } from 'react-date-range';
 
 import { useMonitoringData } from '@/context/MonitoringDataContext';
 import { 
-  createDefaultDateRange, 
+  createCurrentMonthToTodayRange, 
   adjustDateRange,
+  applyCurrentMonthLogic,
+  isCurrentMonth
 } from '@/utils/dateUtils';
 
 import { DateRangeState, SolarPlant } from '@/types';
@@ -28,7 +30,7 @@ const MonitoringDashboardContent = ({
     setIsLoading,
   } = useMonitoringData();
 
-  const [dateRange, setDateRange] = useState<DateRangeState[]>(() => [createDefaultDateRange()]);
+  const [dateRange, setDateRange] = useState<DateRangeState[]>(() => [createCurrentMonthToTodayRange()]);
 
   const { 
     dataState, 
@@ -51,11 +53,15 @@ const MonitoringDashboardContent = ({
     endDate.setHours(23, 59, 59, 999);
 
     const { startDate: adjustedStartDate, endDate: adjustedEndDate } = adjustDateRange(startDate, endDate);
+    
+    const finalRange = isCurrentMonth(adjustedStartDate, adjustedEndDate)
+      ? applyCurrentMonthLogic(adjustedStartDate, adjustedEndDate)
+      : { startDate: adjustedStartDate, endDate: adjustedEndDate };
 
     setDateRange([{
       ...selectedRange,
-      startDate: adjustedStartDate,
-      endDate: adjustedEndDate
+      startDate: finalRange.startDate,
+      endDate: finalRange.endDate
     }]);
   };
 
