@@ -1,6 +1,7 @@
 import React from 'react';
 import { SortDirection } from './ui';
 import { SolarPlant } from './domain';
+import { Range } from 'react-date-range';
 
 export interface CardProps {
     children: React.ReactNode;
@@ -19,6 +20,7 @@ export interface ModalProps {
     onClose: () => void;
     title: string;
     children: React.ReactNode;
+    size?: 'small' | 'medium' | 'large' | 'xlarge';
 }
 
 export interface DataTableProps<T> {
@@ -45,7 +47,7 @@ export interface DataTableProps<T> {
     sortDirection?: SortDirection;
     onSortChange?: (key: string | null, direction: SortDirection) => void;
     
-    totalItems?: number;  
+    totalItems?: number;
     totalPages?: number;
     hasNextPage?: boolean;
     hasPrevPage?: boolean;
@@ -60,4 +62,55 @@ export interface PlantFormProps {
 
 export interface PlantListProps {
     onNavigate: (path: string) => void;
+}
+
+export interface ModalButtonProps {
+    buttonLabel: string;
+    modalTitle: string;
+    children: React.ReactNode | ((props: { onClose: () => void }) => React.ReactNode);
+    icon?: React.ReactNode;
+    buttonClassName?: string;
+    size?: 'small' | 'medium' | 'large' | 'xlarge';
+}
+
+export interface DateRangeState extends Range {
+    key: string;
+}
+
+export interface DatapointReport {
+    day: string;
+    total_energy_expected: number;
+    total_energy_observed: number;
+    total_irradiation_expected: number;
+    total_irradiation_observed: number;
+}
+
+export interface MonitoringDashboardProps {
+    plantId: string | null;
+    plantName: string | null;
+    onNavigate?: (path: string) => void;
+}
+
+export interface DateRangeSelectorProps {
+    dateRange: DateRangeState[];
+    handleSelect: (ranges: { [key: string]: Range }) => void;
+    handleUpdateDatapoints: (onClose: () => void) => Promise<void>;
+}
+
+export interface DataReportTableProps {
+    data: DatapointReport[];
+    isLoading: boolean;
+    onSearchChange: (term: string) => void;
+}
+
+export interface ChartProps {
+    data: DatapointReport[];
+    height?: number;
+}
+
+export interface DataStateRendererProps {
+    dataState: 'initial' | 'loading' | 'empty' | 'loaded';
+    dateRange: DateRangeState[];
+    children: React.ReactNode;
+    onRetry?: () => void;
 }
