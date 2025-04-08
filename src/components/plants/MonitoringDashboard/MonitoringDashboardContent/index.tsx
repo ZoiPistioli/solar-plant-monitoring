@@ -66,7 +66,7 @@ const MonitoringDashboardContent = ({
   };
   
   return (
-    <div className="container mx-auto p-4">
+    <div>
       <Toaster position="top-right" />
       <DashboardHeader
         plantId={plantId}
@@ -81,7 +81,7 @@ const MonitoringDashboardContent = ({
         dateRange={dateRange}
         onRetry={fetchDatapointReport}
       >
-        <div className="p-4">
+        <div>
           <ChartSection />
           <DataReportTable onSearchChange={handleSearchChange} />
         </div>

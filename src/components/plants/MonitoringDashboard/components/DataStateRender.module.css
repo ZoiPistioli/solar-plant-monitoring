@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 10rem);
+}
+
+.emptyStateWrapper {
+  text-align: center;
+}
+
+.iconWrapper {
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.emptyStateTitle {
+  font-size: 1.25rem;
+  font-weight: 600; 
+  margin-bottom: 0.5rem;
+}
+
+.emptyStateSubtitle {
+  color: #6b7280; 
+  margin-bottom: 1rem;
+}
