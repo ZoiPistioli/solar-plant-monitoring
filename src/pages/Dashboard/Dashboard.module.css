@@ -1,0 +1,110 @@
+.container {
+  min-height: calc(100vh - 2rem - 40px);
+}
+
+.hero {
+  padding: 4rem 2rem;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+  background-image: url('/hero-bg.webp');
+  background-size: cover;
+  background-position-y: center;
+  border-radius: 20px 20px 0 0;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  color: white;
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  margin-bottom: 2rem;
+  max-width: 600px;
+  margin-inline: auto;
+  color: white;
+  line-height: 1.6;
+}
+
+.features {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  text-align: center;
+  background-color: transparent;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 10;
+}
+
+.feature {
+  max-width: 280px;
+  padding: 1rem;
+  border-radius: 16px;
+}
+
+.feature h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+  color: #2d3748;
+}
+
+.feature p {
+  color: #4a5568;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.icon {
+  color: var(--color-primary);
+  margin-bottom: 1.5rem;
+  width: 48px;
+  height: 48px;
+  opacity: 0.8;
+}
+
+.logoIcon {
+  height: 2.5rem;
+  width: 2.5rem;
+  color: white;
+}
+
+.button {
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: 20px;
+  cursor: pointer;
+  display: flex;
+  margin: auto;
+  font-size: var(--font-size-base);
+  margin-top: 0.5rem;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.button:hover {
+  background: linear-gradient(108deg, #0047ff 7.25%, #55c1ff 79.6%);
+}
+
+
+.buttonArrow {
+  transition: transform 0.3s ease;
+  width: 1.2rem;
+}
+
+.button:hover .buttonArrow {
+  transform: translateX(7px);
+}
