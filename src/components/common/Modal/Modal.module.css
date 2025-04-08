@@ -1,7 +1,7 @@
 .modalOverlay {
     position: fixed;
     top: 0;
-    left: 0;
+    left: 18rem;
     right: 0;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.5);
@@ -79,3 +79,23 @@
       opacity: 1;
     }
   }
+
+  .modalSmall {
+    max-width: 400px;
+    width: 90%;
+}
+
+.modalMedium {
+    max-width: 600px;
+    width: 90%;
+}
+
+.modalLarge {
+    max-width: 800px;
+    width: 90%;
+}
+
+.modalXLarge {
+    max-width: 1100px;
+    width: 90%;
+}

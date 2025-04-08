@@ -1,48 +1,50 @@
-import { useState, ReactNode } from 'react';
+import { useState } from 'react';
 import { Plus } from 'lucide-react';
 import Modal from '@/components/common/Modal';
-
-interface ModalButtonProps {
-  buttonLabel?: string;
-  modalTitle: string;
-  icon?: ReactNode;
-  buttonClassName?: string;
-  children: (props: { onClose: () => void }) => ReactNode;
-}
+import { ModalButtonProps } from '@/types/components';
 
 const ModalButton = ({
-  buttonLabel,
-  modalTitle,
-  icon = <Plus size={20} />,
-  buttonClassName = '',
-  children
+    buttonLabel,
+    modalTitle,
+    icon = <Plus size={20} />,
+    buttonClassName = '',
+    children,
+    size = 'medium' 
 }: ModalButtonProps) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleOpenModal = () => setIsModalOpen(true);
-  const handleCloseModal = () => setIsModalOpen(false);
+    const handleOpenModal = () => setIsModalOpen(true);
+    const handleCloseModal = () => setIsModalOpen(false);
 
-  return (
-    <>
-      <button
-        className={`modalButton ${buttonClassName}`}
-        onClick={handleOpenModal}
-      >
-        {icon}
-        <span>{buttonLabel}</span>
-      </button>
+    const renderChildren = () => {
+        if (typeof children === 'function') {
+            return children({ onClose: handleCloseModal });
+        }
+        return children;
+    };
 
-      {isModalOpen && (
-        <Modal
-          isOpen={isModalOpen}
-          onClose={handleCloseModal}
-          title={modalTitle}
-        >
-          {children({ onClose: handleCloseModal })}
-        </Modal>
-      )}
-    </>
-  );
+    return (
+        <>
+            <button
+                className={`modalButton ${buttonClassName}`}
+                onClick={handleOpenModal}
+            >
+                {icon}
+                <span>{buttonLabel}</span>
+            </button>
+
+            {isModalOpen && (
+                <Modal
+                    isOpen={isModalOpen}
+                    onClose={handleCloseModal}
+                    title={modalTitle}
+                    size={size} 
+                >
+                    {renderChildren()}
+                </Modal>
+            )}
+        </>
+    );
 };
 
 export default ModalButton;
