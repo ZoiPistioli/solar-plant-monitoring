@@ -8,27 +8,27 @@ const getInitialPlants = (): SolarPlant[] => {
   }
 
   const initialPlants: SolarPlant[] = [
-    { id: uuidv4(), name: 'Solar Plant Alpha' },
-    { id: uuidv4(), name: 'Solar Plant Beta' },
-    { id: uuidv4(), name: 'Solar Plant Gamma' },
-    { id: uuidv4(), name: 'Solar Plant Delta' },
-    { id: uuidv4(), name: 'Solar Plant Epsilon' },
-    { id: uuidv4(), name: 'Solar Plant Zeta' },
-    { id: uuidv4(), name: 'Solar Plant Eta' },
-    { id: uuidv4(), name: 'Solar Plant Theta' },
-    { id: uuidv4(), name: 'Solar Plant Iota' },
-    { id: uuidv4(), name: 'Solar Plant Kappa' },
-    { id: uuidv4(), name: 'Solar Plant Lambda' },
-    { id: uuidv4(), name: 'Solar Plant Mu' },
-    { id: uuidv4(), name: 'Solar Plant Nu' },
-    { id: uuidv4(), name: 'Solar Plant Xi' },
-    { id: uuidv4(), name: 'Solar Plant Omicron' },
-    { id: uuidv4(), name: 'Solar Plant Pi' },
-    { id: uuidv4(), name: 'Solar Plant Rho' },
-    { id: uuidv4(), name: 'Solar Plant Sigma' },
-    { id: uuidv4(), name: 'Solar Plant Tau' },
-    { id: uuidv4(), name: 'Solar Plant Upsilon' },
-    { id: uuidv4(), name: 'Solar Plant Phi' }
+    { uid: uuidv4(), name: 'Solar Plant Alpha' },
+    { uid: uuidv4(), name: 'Solar Plant Beta' },
+    { uid: uuidv4(), name: 'Solar Plant Gamma' },
+    { uid: uuidv4(), name: 'Solar Plant Delta' },
+    { uid: uuidv4(), name: 'Solar Plant Epsilon' },
+    { uid: uuidv4(), name: 'Solar Plant Zeta' },
+    { uid: uuidv4(), name: 'Solar Plant Eta' },
+    { uid: uuidv4(), name: 'Solar Plant Theta' },
+    { uid: uuidv4(), name: 'Solar Plant Iota' },
+    { uid: uuidv4(), name: 'Solar Plant Kappa' },
+    { uid: uuidv4(), name: 'Solar Plant Lambda' },
+    { uid: uuidv4(), name: 'Solar Plant Mu' },
+    { uid: uuidv4(), name: 'Solar Plant Nu' },
+    { uid: uuidv4(), name: 'Solar Plant Xi' },
+    { uid: uuidv4(), name: 'Solar Plant Omicron' },
+    { uid: uuidv4(), name: 'Solar Plant Pi' },
+    { uid: uuidv4(), name: 'Solar Plant Rho' },
+    { uid: uuidv4(), name: 'Solar Plant Sigma' },
+    { uid: uuidv4(), name: 'Solar Plant Tau' },
+    { uid: uuidv4(), name: 'Solar Plant Upsilon' },
+    { uid: uuidv4(), name: 'Solar Plant Phi' }
   ];
 
   localStorage.setItem('mockPlants', JSON.stringify(initialPlants));
@@ -75,7 +75,7 @@ export const mockApiService = {
   getPlantById: async (id: string): Promise<ApiResponse<SolarPlant>> => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        const plant = mockPlants.find(p => p.id === id);
+        const plant = mockPlants.find(p => p.uid === id);
         if (plant) {
           resolve({ data: plant });
         } else {
@@ -89,7 +89,7 @@ export const mockApiService = {
     return new Promise((resolve) => {
       setTimeout(() => {
         const newPlant: SolarPlant = {
-          id: uuidv4(),
+          uid: uuidv4(),
           name: plantData.name
         };
         mockPlants.push(newPlant);
@@ -102,7 +102,7 @@ export const mockApiService = {
   updatePlant: async (id: string, plantData: { name: string }): Promise<ApiResponse<SolarPlant>> => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        const index = mockPlants.findIndex(p => p.id === id);
+        const index = mockPlants.findIndex(p => p.uid === id);
         if (index !== -1) {
           mockPlants[index] = { ...mockPlants[index], ...plantData };
           localStorage.setItem('mockPlants', JSON.stringify(mockPlants));
@@ -117,7 +117,7 @@ export const mockApiService = {
   deletePlant: async (id: string): Promise<ApiResponse<boolean>> => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        const index = mockPlants.findIndex(p => p.id === id);
+        const index = mockPlants.findIndex(p => p.uid === id);
         if (index !== -1) {
           mockPlants.splice(index, 1);
           localStorage.setItem('mockPlants', JSON.stringify(mockPlants));
@@ -132,7 +132,7 @@ export const mockApiService = {
   getDataReport: async (params: DataReportRequest): Promise<ApiResponse<Datapoint[]>> => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        const plant = mockPlants.find(p => p.id === params.plant_id);
+        const plant = mockPlants.find(p => p.uid === params.plant_id);
         if (!plant) {
           resolve({ error: 'Plant not found' });
           return;
@@ -147,7 +147,7 @@ export const mockApiService = {
   updateData: async (params: DataUpdateRequest): Promise<ApiResponse<DataUpdateResponse>> => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        const plant = mockPlants.find(p => p.id === params.plant_id);
+        const plant = mockPlants.find(p => p.uid === params.plant_id);
         if (!plant) {
           resolve({ error: 'Plant not found' });
           return;

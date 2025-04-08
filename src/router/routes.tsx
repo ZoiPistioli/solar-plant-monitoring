@@ -1,4 +1,4 @@
-import { LayoutDashboard, Columns2, MonitorDot } from 'lucide-react';
+import { LayoutDashboard, Columns2 } from 'lucide-react';
 
 export const ROUTES = {
   home: {
