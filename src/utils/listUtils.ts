@@ -1,7 +1,7 @@
 import { SolarPlant } from '@/types';
 
 function isPlantKey(key: string): key is keyof SolarPlant {
-  return ['name', 'id'].includes(key);
+  return ['name', 'uid'].includes(key);
 }
 
 export const listUtils = {
