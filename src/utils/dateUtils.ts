@@ -98,19 +98,24 @@ export const createMonthDateRange = (year: number, month: number): { startDate: 
 };
 
 /**
- * Adjust date range to not exceed today
+ * Adjust date range for current month to preserve selected dates
  */
 export const adjustDateRange = (startDate: Date, endDate: Date): { startDate: Date, endDate: Date } => {
   const today = new Date();
   today.setHours(23, 59, 59, 999);
 
-  const adjustedStartDate = startDate > today ? today : startDate;
-  const adjustedEndDate = endDate > today ? today : endDate;
+  const isCurrentMonth = 
+    startDate.getFullYear() === today.getFullYear() && 
+    startDate.getMonth() === today.getMonth();
 
-  return {
-    startDate: adjustedStartDate,
-    endDate: adjustedEndDate
-  };
+  if (!isCurrentMonth) {
+    return {
+      startDate: startDate > today ? today : startDate,
+      endDate: endDate > today ? today : endDate
+    };
+  }
+
+  return { startDate, endDate };
 };
 
 /**
@@ -129,24 +134,28 @@ export const filterDataByDateRange = (data: any[], startDate: Date, endDate: Dat
  */
 export const isCurrentMonth = (startDate: Date, endDate: Date): boolean => {
   const today = new Date();
-  const currentMonthStart = new Date(today.getFullYear(), today.getMonth(), 1);
-  
-  return startDate.getFullYear() === currentMonthStart.getFullYear() && 
-         startDate.getMonth() === currentMonthStart.getMonth();
+  const currentYear = today.getFullYear();
+  const currentMonth = today.getMonth();
+
+  return (
+    startDate.getFullYear() === currentYear &&
+    startDate.getMonth() === currentMonth &&
+    endDate.getFullYear() === currentYear &&
+    endDate.getMonth() === currentMonth
+  );
 };
 
 /**
  * Automatically adjust end date to today if the range is for the current month
  */
 export const applyCurrentMonthLogic = (startDate: Date, endDate: Date): { startDate: Date, endDate: Date } => {
-  if (isCurrentMonth(startDate, endDate)) {
-    const today = new Date();
-    today.setHours(23, 59, 59, 999);
-    return {
-      startDate,
-      endDate: today
-    };
-  }
-  
-  return { startDate, endDate };
+  const today = new Date();
+  today.setHours(23, 59, 59, 999);
+
+  const adjustedEndDate = endDate > today ? today : endDate;
+
+  return {
+    startDate,
+    endDate: adjustedEndDate
+  };
 };

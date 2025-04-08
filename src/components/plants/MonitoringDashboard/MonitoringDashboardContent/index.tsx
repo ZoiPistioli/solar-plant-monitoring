@@ -6,8 +6,7 @@ import { useMonitoringData } from '@/context/MonitoringDataContext';
 import { 
   createCurrentMonthToTodayRange, 
   adjustDateRange,
-  applyCurrentMonthLogic,
-  isCurrentMonth
+  applyCurrentMonthLogic
 } from '@/utils/dateUtils';
 
 import { DateRangeState, SolarPlant } from '@/types';
@@ -46,18 +45,15 @@ const MonitoringDashboardContent = ({
   const handleSelect = (ranges: { [key: string]: Range }) => {
     const selectedRange = ranges['selection'] as DateRangeState;
     if (!selectedRange.startDate || !selectedRange.endDate) return;
-
+  
     const startDate = new Date(selectedRange.startDate);
     const endDate = new Date(selectedRange.endDate);
     startDate.setHours(0, 0, 0, 0);
     endDate.setHours(23, 59, 59, 999);
-
+  
     const { startDate: adjustedStartDate, endDate: adjustedEndDate } = adjustDateRange(startDate, endDate);
-    
-    const finalRange = isCurrentMonth(adjustedStartDate, adjustedEndDate)
-      ? applyCurrentMonthLogic(adjustedStartDate, adjustedEndDate)
-      : { startDate: adjustedStartDate, endDate: adjustedEndDate };
-
+    const finalRange = applyCurrentMonthLogic(adjustedStartDate, adjustedEndDate);
+  
     setDateRange([{
       ...selectedRange,
       startDate: finalRange.startDate,
