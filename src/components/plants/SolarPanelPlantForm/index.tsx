@@ -51,7 +51,7 @@ const SolarPlantForm = ({ solarPlant, onSubmit, onCancel }: PlantFormProps) => {
           <input
             type="text"
             id="id"
-            value={solarPlant.id}
+            value={solarPlant.uid}
             disabled
             className={styles.input}
           />

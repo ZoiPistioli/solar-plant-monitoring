@@ -216,7 +216,7 @@ const PlantList = ({ onNavigate }: PlantListProps) => {
   const totalPages = Math.max(1, Math.ceil(totalItems / itemsPerPage));
 
   const tableStyles = {
-    minHeight: `${itemsPerPage * 53 + 60}px`
+    minHeight: 'auto'
   };
 
   return (
