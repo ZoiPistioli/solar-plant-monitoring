@@ -140,9 +140,9 @@ const DataTable = <T extends Record<string, any>>({
         </div>
       </div>
 
-      <div className={styles.tableContainer}>
+      <div className={`${styles.tableContainer} ${columns.length > 3 ? styles.horizontalOverflow : ''}`}>
         <table className={styles.table}>
-          <TableHeader 
+          <TableHeader
             columns={columns}
             sortKey={sortKey}
             sortDirection={sortDirection}

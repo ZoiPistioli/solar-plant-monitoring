@@ -23,7 +23,7 @@ const DashboardHeader = ({
     <div className={styles.header}>
       <div className={styles.titleRow}>
         <h1 className={styles.title}>
-          Monitoring - {plantName || ''}
+          <span className={styles.titleSpan}>Monitoring -</span> {plantName || ''}
         </h1>
         <DateRangeSelector
           dateRange={dateRange}
