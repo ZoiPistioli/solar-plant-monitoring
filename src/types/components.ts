@@ -54,6 +54,65 @@ export interface DataTableProps<T> {
     serverSidePagination?: boolean;
 }
 
+export interface ColumnDefinition<T> {
+    key: string;
+    header: string;
+    sortable?: boolean;
+    render?: (item: T) => React.ReactNode;
+    width?: string;
+}
+
+export interface UseTableDataProps<T> {
+    data: T[];
+    searchTerm: string;
+    searchFields: string[];
+    sortKey: string | null;
+    sortDirection: SortDirection;
+    currentPage: number;
+    itemsPerPage: number;
+    serverSidePagination: boolean;
+    passedTotalPages?: number;
+    totalItems?: number;
+}
+
+export interface TableHeaderProps<T> {
+    columns: ColumnDefinition<T>[];
+    sortKey: string | null;
+    sortDirection: SortDirection;
+    onSortChange: (key: string) => void;
+    actions: boolean;
+}
+
+export interface TableBodyProps<T> {
+    data: T[];
+    columns: ColumnDefinition<T>[];
+    keyExtractor: (item: T) => string;
+    isLoading: boolean;
+    searchTerm: string;
+    onRowClick?: (item: T) => void;
+    actions?: (item: T) => React.ReactNode;
+    handleSearch: (value: string) => void;
+    itemsPerPage: number;
+}
+
+export interface EmptyStateProps {
+    searchTerm: string;
+    onClearSearch: () => void;
+}
+
+export interface SearchBarProps {
+    searchTerm: string;
+    onSearch: (value: string) => void;
+}
+
+export interface PaginationProps {
+    currentPage: number;
+    totalPages: number;
+    onPageChange: (page: number) => void;
+    hasPrevPage: boolean;
+    hasNextPage: boolean;
+}
+
 export interface PlantFormProps {
     solarPlant?: SolarPlant;
     onSubmit: (solarPlant: { name: string }) => void;
