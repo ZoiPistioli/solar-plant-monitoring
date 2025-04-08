@@ -136,10 +136,21 @@ export const apiService = {
         body: JSON.stringify(params)
       });
       
-      const result = await handleResponse<PaginatedResponse<Datapoint>>(response);
+      const result = await handleResponse<any>(response);
       
       if (result.data) {
-        return { data: result.data.results };
+        if (Array.isArray(result.data)) {
+          console.log('API Service: result.data is an array, returning directly');
+          return { data: result.data };
+        }
+        
+        if (result.data.results && Array.isArray(result.data.results)) {
+          console.log('API Service: result.data.results is an array, returning paginated data');
+          return { data: result.data.results };
+        }
+        
+        console.error('API Service: Unrecognized data format:', result.data);
+        return { error: 'Unexpected data format' };
       }
       
       if (result.error) {

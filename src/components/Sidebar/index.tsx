@@ -43,7 +43,9 @@ const Sidebar = () => {
         
         <nav className={styles.navigation}>
           {Object.entries(ROUTES).map(([key, route]) => {
-            const isActive = location.pathname === route.path;
+            const isActive = route.path === '/'
+            ? location.pathname === '/'
+            : location.pathname.startsWith(route.path);
             return (
               <div 
                 key={key}
